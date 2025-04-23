@@ -1,0 +1,7 @@
+.idea
+.vscode
+.venv
+venv
+__pycache__/
+_mongo_data
+_cache
