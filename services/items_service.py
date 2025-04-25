@@ -1,54 +1,39 @@
 import logging
-from urllib.request import Request
-
+import hvac
+from hvac.exceptions import InvalidPath
 from fastapi import HTTPException
-from models.item_model import Item
-from datetime import datetime
+from typing import Dict
 
-def create_item(new_item, repository) -> str:
+from config.config import VAULT_HOST, VAULT_PORT, VAULT_TOKEN, VAULT_SECRET_PATH
+
+client = hvac.Client(url=f"{VAULT_HOST}:{VAULT_PORT}", token=VAULT_TOKEN)
+
+def get_secret(entity_uuid: str, licence_uuid: str, service: str) -> Dict[str, str]:
+    logging.info(f"Getting secret for entity {entity_uuid}, license {licence_uuid}, service {service}")
+    path = f"entities/{entity_uuid}/licenses/{licence_uuid}/{service}"
+
     try:
-        new_uuid = repository.create_item(new_item)
-        if not isinstance(new_uuid, str):
-            raise TypeError("The method create_item did not return a str.")
+        secret = client.secrets.kv.v2.read_secret_version(
+            path=path, mount_point=VAULT_SECRET_PATH
+        )
+        return secret["data"]["data"]
+    except InvalidPath:
+        raise HTTPException(status_code=404, detail="Secret not found")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred while creating the item: {e}")
+        logging.error(f"Error retrieving secret: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
-    return new_uuid
+def create_secret(entity_uuid: str, license_uuid: str, service: str, secret_data: Dict[str, str]) -> Dict[str, str]:
+    logging.info(f"Creating secret for entity {entity_uuid}, license {license_uuid}, service {service}")
+    path = f"entities/{entity_uuid}/licenses/{license_uuid}/{service}"
 
-def get_items(filters, repository) -> list[Item]:
-    logging.info("Getting all items")
-    #try:
-    items = repository.list_items(filters)
-    logging.info(f"Found {len(items)} items")
-    logging.info(items)
     try:
-        if not isinstance(items, list):
-            raise TypeError("The method list_items did not return a list.")
+        client.secrets.kv.v2.create_or_update_secret(
+            path=path,
+            mount_point=VAULT_SECRET_PATH,
+            secret=secret_data
+        )
+        return {"message": "Secret recorded successfully"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred while get the list of items: {e}")
-
-    return items
-
-
-def get_item(uuid: str, repository) -> Item:
-    try:
-        item = repository.get_item(uuid)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred while get item: {e}")
-
-    if item is None:
-        raise HTTPException(status_code=404, detail="Item not found")
-
-    return item
-
-def update_item(uuid: str, item_update: Item, repository) -> None:
-    try:
-        repository.update_item(uuid, item_update)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred while updating the item: {e}")
-
-def delete_item(uuid: str, repository) -> None:
-    try:
-        repository.delete_item(uuid)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred while deleting the item: {e}")
+        logging.error(f"Error creating secret: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
