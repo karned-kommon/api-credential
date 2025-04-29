@@ -12,13 +12,13 @@
         <meta name="author" content="Karned Team">
       
       
-        <link rel="canonical" href="https://karned.github.io/Kommon/api-credential/api/overview/">
+        <link rel="canonical" href="https://karned-kommon.github.io/api-credential/api/overview/">
       
       
         <link rel="prev" href="../../getting-started/">
       
       
-        <link rel="next" href="../endpoints/">
+        <link rel="next" href="../../development/setup/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -518,15 +518,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rate-limiting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rate Limiting
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Next Steps
@@ -539,29 +530,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../endpoints/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Endpoints
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -713,7 +681,7 @@
 <p>This section provides detailed information about the API Credential service endpoints, authentication methods, and response formats.</p>
 <h2 id="base-url">Base URL</h2>
 <p>The base URL for all API endpoints is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://api.karned.com/credential/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://api.karned.bzh/credential/
 </code></pre></div>
 <p>For local development, the base URL is:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>http://localhost:8000/
@@ -725,7 +693,7 @@
 <li><strong>v1</strong>: Current stable API</li>
 </ul>
 <p>To specify the API version, include it in the URL path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>https://api.karned.com/credential/v1/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>https://api.karned.bzh/credential/v1/
 </code></pre></div>
 <h2 id="authentication">Authentication</h2>
 <p>All API endpoints require authentication. The API Credential service supports the following authentication methods:</p>
@@ -734,8 +702,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Authorization: Bearer &lt;your_token&gt;
 </code></pre></div>
 <h3 id="api-key-authentication">API Key Authentication</h3>
-<p>Some endpoints support API key authentication. Include the API key in the <code>X-API-Key</code> header:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>X-API-Key: &lt;your_api_key&gt;
+<p>Some endpoints support License key authentication. Include the API key in the <code>X-License-Key</code> header:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>X-License-Key: &lt;your_license_key&gt;
 </code></pre></div>
 <h2 id="response-format">Response Format</h2>
 <p>All API responses are in JSON format. A typical response has the following structure:</p>
@@ -757,20 +725,10 @@
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">}</span>
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
 </code></pre></div>
-<h2 id="rate-limiting">Rate Limiting</h2>
-<p>The API has rate limiting to prevent abuse. The current limits are:</p>
-<ul>
-<li>100 requests per minute for authenticated users</li>
-<li>10 requests per minute for unauthenticated users</li>
-</ul>
-<p>Rate limit information is included in the response headers:</p>
-<ul>
-<li><code>X-RateLimit-Limit</code>: The maximum number of requests allowed per minute</li>
-<li><code>X-RateLimit-Remaining</code>: The number of requests remaining in the current time window</li>
-<li><code>X-RateLimit-Reset</code>: The time when the rate limit will reset (Unix timestamp)</li>
-</ul>
 <h2 id="next-steps">Next Steps</h2>
-<p>Explore the <a href="../endpoints/">Endpoints</a> documentation for detailed information about each API endpoint.</p>
+<ul>
+<li>Visit our <a href="https://api.karned.bzh/credential/docs">Swagger Documentation</a> for interactive API testing and exploration.</li>
+</ul>
 
 
 

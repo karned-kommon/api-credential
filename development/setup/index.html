@@ -12,10 +12,10 @@
         <meta name="author" content="Karned Team">
       
       
-        <link rel="canonical" href="https://karned.github.io/Kommon/api-credential/development/setup/">
+        <link rel="canonical" href="https://karned-kommon.github.io/api-credential/development/setup/">
       
       
-        <link rel="prev" href="../../api/endpoints/">
+        <link rel="prev" href="../../api/overview/">
       
       
         <link rel="next" href="../contributing/">
@@ -404,29 +404,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../api/endpoints/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Endpoints
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -729,7 +706,7 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before you begin, make sure you have the following installed:</p>
 <ul>
-<li>Python 3.8 or higher</li>
+<li>Python 3.12 or higher</li>
 <li>Git</li>
 <li>Docker (optional, for containerized development)</li>
 <li>Redis (for caching and session management)</li>
@@ -753,23 +730,28 @@
 <h2 id="configuration">Configuration</h2>
 <p>The API Credential service uses environment variables for configuration. Create a <code>.env</code> file in the root directory with the following variables:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># API Configuration
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>API_HOST=0.0.0.0
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>API_PORT=8000
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>DEBUG=True
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>ENVIRONMENT=development
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>PYTHONUNBUFFERED=True
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>WORKERS=1
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>API_NAME=api-credential
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>API_TAG_NAME=credentials
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a># Security
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>SECRET_KEY=your_secret_key_here
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>TOKEN_EXPIRATION=86400  # 24 hours in seconds
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a># Redis Configuration
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>REDIS_HOST=localhost
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>REDIS_PORT=6379
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>REDIS_DB=0
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>REDIS_PASSWORD=
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a># Logging
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>LOG_LEVEL=DEBUG
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a># Keycloak Configuration
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>KEYCLOAK_HOST=
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>KEYCLOAK_REALM=
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>KEYCLOAK_CLIENT_ID=
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>KEYCLOAK_CLIENT_SECRET=
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a># Redis Configuration
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>REDIS_HOST=localhost
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>REDIS_PORT=6379
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>REDIS_DB=0
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>REDIS_PASSWORD=
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a># Vault Configuration
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>VAULT_HOST=
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>VAULT_PORT=
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>VAULT_TOKEN=
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>VAULT_SECRET_PATH=
 </code></pre></div>
 <h2 id="database-setup">Database Setup</h2>
 <p>The API Credential service uses Redis for caching and session management. Make sure Redis is running:</p>

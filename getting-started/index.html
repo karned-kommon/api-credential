@@ -12,7 +12,7 @@
         <meta name="author" content="Karned Team">
       
       
-        <link rel="canonical" href="https://karned.github.io/Kommon/api-credential/getting-started/">
+        <link rel="canonical" href="https://karned-kommon.github.io/api-credential/getting-started/">
       
       
         <link rel="prev" href="..">
@@ -515,29 +515,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/endpoints/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Endpoints
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -685,7 +662,7 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Before you begin, make sure you have the following:</p>
 <ul>
-<li>Python 3.8 or higher</li>
+<li>Python 3.12 or higher</li>
 <li>Docker (optional, for containerized deployment)</li>
 <li>Access to the Karned platform</li>
 </ul>
@@ -720,7 +697,7 @@
 <ol>
 <li>
 <p>Build the Docker image:
-   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>api-credential<span class="w"> </span>.
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>api-credential<span class="w"> </span>--platform<span class="o">=</span>linux/amd64<span class="w"> </span>.
 </code></pre></div></p>
 </li>
 <li>
