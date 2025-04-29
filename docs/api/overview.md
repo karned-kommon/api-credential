@@ -7,7 +7,7 @@ This section provides detailed information about the API Credential service endp
 The base URL for all API endpoints is:
 
 ```
-https://api.karned.com/credential/
+https://api.karned.bzh/credential/
 ```
 
 For local development, the base URL is:
@@ -26,7 +26,7 @@ The API Credential service supports multiple API versions:
 To specify the API version, include it in the URL path:
 
 ```
-https://api.karned.com/credential/v1/
+https://api.karned.bzh/credential/v1/
 ```
 
 ## Authentication
@@ -43,10 +43,10 @@ Authorization: Bearer <your_token>
 
 ### API Key Authentication
 
-Some endpoints support API key authentication. Include the API key in the `X-API-Key` header:
+Some endpoints support License key authentication. Include the API key in the `X-License-Key` header:
 
 ```
-X-API-Key: <your_api_key>
+X-License-Key: <your_license_key>
 ```
 
 ## Response Format
@@ -77,19 +77,6 @@ Error responses have the following structure:
 }
 ```
 
-## Rate Limiting
-
-The API has rate limiting to prevent abuse. The current limits are:
-
-- 100 requests per minute for authenticated users
-- 10 requests per minute for unauthenticated users
-
-Rate limit information is included in the response headers:
-
-- `X-RateLimit-Limit`: The maximum number of requests allowed per minute
-- `X-RateLimit-Remaining`: The number of requests remaining in the current time window
-- `X-RateLimit-Reset`: The time when the rate limit will reset (Unix timestamp)
-
 ## Next Steps
 
-Explore the [Endpoints](endpoints.md) documentation for detailed information about each API endpoint.
+- Visit our [Swagger Documentation](https://api.karned.bzh/credential/docs) for interactive API testing and exploration.

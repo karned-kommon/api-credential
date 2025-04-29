@@ -6,7 +6,7 @@ This guide will help you get started with the API Credential service.
 
 Before you begin, make sure you have the following:
 
-- Python 3.8 or higher
+- Python 3.12 or higher
 - Docker (optional, for containerized deployment)
 - Access to the Karned platform
 
@@ -42,7 +42,7 @@ The API will be available at `http://localhost:8000`.
 
 1. Build the Docker image:
    ```bash
-   docker build -t api-credential .
+   docker build -t api-credential --platform=linux/amd64 .
    ```
 
 2. Run the container:

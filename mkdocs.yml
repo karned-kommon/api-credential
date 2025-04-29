@@ -1,7 +1,7 @@
 site_name: API Credential Documentation
 site_description: Documentation for the API Credential service
 site_author: Karned Team
-site_url: https://karned.github.io/Kommon/api-credential/
+site_url: https://karned-kommon.github.io/api-credential/
 
 theme:
   name: material
@@ -43,7 +43,6 @@ nav:
   - Getting Started: getting-started.md
   - API Reference:
     - Overview: api/overview.md
-    - Endpoints: api/endpoints.md
   - Development:
     - Setup: development/setup.md
     - Contributing: development/contributing.md

@@ -6,7 +6,7 @@ This guide provides instructions for setting up a development environment for th
 
 Before you begin, make sure you have the following installed:
 
-- Python 3.8 or higher
+- Python 3.12 or higher
 - Git
 - Docker (optional, for containerized development)
 - Redis (for caching and session management)
@@ -47,14 +47,16 @@ The API Credential service uses environment variables for configuration. Create 
 
 ```
 # API Configuration
-API_HOST=0.0.0.0
-API_PORT=8000
-DEBUG=True
-ENVIRONMENT=development
+PYTHONUNBUFFERED=True
+WORKERS=1
+API_NAME=api-credential
+API_TAG_NAME=credentials
 
-# Security
-SECRET_KEY=your_secret_key_here
-TOKEN_EXPIRATION=86400  # 24 hours in seconds
+# Keycloak Configuration
+KEYCLOAK_HOST=
+KEYCLOAK_REALM=
+KEYCLOAK_CLIENT_ID=
+KEYCLOAK_CLIENT_SECRET=
 
 # Redis Configuration
 REDIS_HOST=localhost
@@ -62,8 +64,11 @@ REDIS_PORT=6379
 REDIS_DB=0
 REDIS_PASSWORD=
 
-# Logging
-LOG_LEVEL=DEBUG
+# Vault Configuration
+VAULT_HOST=
+VAULT_PORT=
+VAULT_TOKEN=
+VAULT_SECRET_PATH=
 ```
 
 ## Database Setup

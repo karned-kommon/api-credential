@@ -2,10 +2,6 @@
 
 Thank you for your interest in contributing to the API Credential service! This document provides guidelines and instructions for contributing to the project.
 
-## Code of Conduct
-
-Please read and follow our [Code of Conduct](https://github.com/Karned/Kommon/blob/main/CODE_OF_CONDUCT.md) to foster an inclusive and respectful community.
-
 ## Getting Started
 
 1. Fork the repository on GitHub
