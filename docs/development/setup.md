@@ -14,7 +14,7 @@ Before you begin, make sure you have the following installed:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/Karned/Kommon/api-credential.git
+git clone https://github.com/karned-kommon/api-credential.git
 cd api-credential
 ```
 
