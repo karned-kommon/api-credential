@@ -21,3 +21,4 @@ VAULT_TOKEN = os.environ['VAULT_TOKEN']
 VAULT_SECRET_PATH = os.environ['VAULT_SECRET_PATH']
 
 UNPROTECTED_PATHS = ['/favicon.ico', '/docs', '/credential/openapi.json']
+UNLICENSED_PATHS = []
