@@ -31,7 +31,7 @@ def custom_openapi():
         "LicenceHeader": {
             "type": "apiKey",
             "in": "header",
-            "name": "licence"
+            "name": "X-License-Key"
         }
     }
     for path in openapi_schema["paths"]:
