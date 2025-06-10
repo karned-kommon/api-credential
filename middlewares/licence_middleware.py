@@ -47,7 +47,8 @@ def get_licences(token: str) -> list:
     response = httpx.get(f"{URL_API_GATEWAY}/license/v1/mine", headers={"Authorization": f"Bearer {token}"})
     if response.status_code != 200:
         raise HTTPException(status_code=500, detail="Licences request failed")
-    return response.json()
+    data = response.json()
+    return data.get("data", [])
 
 
 def filter_licences(licences: list) -> list:
@@ -59,7 +60,10 @@ def filter_licences(licences: list) -> list:
             "name": lic["name"],
             "iat": lic["iat"],
             "exp": lic["exp"],
-            "entity_uuid": lic["entity_uuid"]
+            "entity_uuid": lic["entity_uuid"],
+            "api_roles": lic.get("api_roles"),
+            "app_roles": lic.get("app_roles"),
+            "apps": lic.get("apps"),
         }
         for lic in licences if lic["iat"] < now < lic["exp"]
     ]
