@@ -21,14 +21,17 @@ def generate_state_info( token_info: dict ) -> dict:
         "user_display_name": token_info.get("preferred_username"),
         "user_email": token_info.get("email"),
         "user_audiences": token_info.get("aud"),
-        "user_roles": token_info.get("resource_access"),
         "cached_time": token_info.get("cached_time")
     }
 
 
 def is_token_valid_audience( token_info: dict ) -> bool:
     aud = token_info.get("aud")
-    return API_NAME in aud
+    if isinstance(aud, str):
+        return "karned" == aud
+    if isinstance(aud, list):
+        return "karned" in aud
+    return False
 
 
 def is_token_active( token_info: dict ) -> bool:
@@ -157,3 +160,4 @@ class TokenVerificationMiddleware(BaseHTTPMiddleware):
             return response
         except HTTPException as exc:
             return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
