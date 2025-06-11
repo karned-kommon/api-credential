@@ -11,7 +11,7 @@ def get_vault_token():
     token = r.get("VAULT_TOKEN")
     if token:
         logging.info("Using VAULT_TOKEN from Redis")
-        return token.decode('utf-8')  # Decode the token from bytes to string
+        return token
 
     logging.info("VAULT_TOKEN not found in Redis, using from config")
     r.set("VAULT_TOKEN", VAULT_TOKEN)

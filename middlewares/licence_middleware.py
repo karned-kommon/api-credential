@@ -37,19 +37,9 @@ def is_licence_found(request: Request, licence: str) -> bool:
     licenses = getattr(request.state, 'licenses', None)
     if not licenses:
         return False
-
-    # Check if any valid license matches the requested license
-    for licence_data in licenses:
-        # Skip if licence_data is not a dictionary
-        if not isinstance(licence_data, dict):
-            logging.warning(f"Skipping non-dictionary license in is_licence_found: {licence_data}")
-            continue
-
-        # Use get() to safely access the uuid
-        if licence_data.get('uuid') == licence:
-            return True
-
-    return False
+    if not any(licence_data['uuid'] == licence for licence_data in licenses):
+        return False
+    return True
 
 
 def get_licences(token: str) -> list:
@@ -63,35 +53,20 @@ def get_licences(token: str) -> list:
 
 def filter_licences(licences: list) -> list:
     now = int(datetime.now(timezone.utc).timestamp())
-    licences_filtered = []
-
-    for lic in licences:
-        # Skip if lic is not a dictionary
-        if not isinstance(lic, dict):
-            logging.warning(f"Skipping non-dictionary license: {lic}")
-            continue
-
-        # Skip if required fields are missing
-        if "iat" not in lic or "exp" not in lic:
-            logging.warning(f"Skipping license missing required fields: {lic}")
-            continue
-
-        # Skip if license is not valid (outside time range)
-        if not (lic["iat"] < now < lic["exp"]):
-            continue
-
-        licences_filtered.append({
-            "uuid": lic.get("uuid"),
-            "type_uuid": lic.get("type_uuid"),
-            "name": lic.get("name"),
-            "iat": lic.get("iat"),
-            "exp": lic.get("exp"),
-            "entity_uuid": lic.get("entity_uuid"),
+    licences_filtered = [
+        {
+            "uuid": lic["uuid"],
+            "type_uuid": lic["type_uuid"],
+            "name": lic["name"],
+            "iat": lic["iat"],
+            "exp": lic["exp"],
+            "entity_uuid": lic["entity_uuid"],
             "api_roles": lic.get("api_roles"),
             "app_roles": lic.get("app_roles"),
             "apps": lic.get("apps"),
-        })
-
+        }
+        for lic in licences if lic["iat"] < now < lic["exp"]
+    ]
     return licences_filtered
 
 
@@ -126,21 +101,9 @@ def check_licence(request: Request, licence: str) -> None:
 def extract_entity(request: Request) -> str:
     licenses = getattr(request.state, 'licenses', None)
     license_uuid = getattr(request.state, 'licence_uuid', None)
-
-    if not licenses:
-        raise HTTPException(status_code=500, detail="No licenses found")
-
     for lic in licenses:
-        # Skip if lic is not a dictionary
-        if not isinstance(lic, dict):
-            logging.warning(f"Skipping non-dictionary license in extract_entity: {lic}")
-            continue
-
-        if str(lic.get('uuid', '')) == str(license_uuid):
-            entity_uuid = lic.get('entity_uuid')
-            if entity_uuid:
-                return entity_uuid
-
+        if str(lic.get('uuid')) == str(license_uuid):
+            return lic.get('entity_uuid')
     raise HTTPException(status_code=500, detail="Entity not found")
 
 
