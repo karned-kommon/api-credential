@@ -16,7 +16,7 @@ ENV PYTHONUNBUFFERED=True \
     PORT=8000 \
     WORKERS=1 \
     API_NAME=api-credential \
-    API_TAG_NAME=credentials
+    API_TAG_NAME=credential
 
 ENV KEYCLOAK_HOST="" \
     KEYCLOAK_REALM="" \
