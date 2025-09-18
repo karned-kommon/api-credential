@@ -33,6 +33,8 @@ ENV VAULT_HOST="" \
 	VAULT_TOKEN="" \
 	VAULT_SECRET_PATH=""
 
+ENV URL_API_GATEWAY=""
+
 WORKDIR /app
 
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
